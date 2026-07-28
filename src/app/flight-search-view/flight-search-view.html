@@ -1,0 +1,40 @@
+<h3>Flight Search</h3>
+
+<div class="mb-3">
+    <label for="from" class="form-label">From</label>
+    <input class="form-control" id="from" [formField]="form.from">
+    <div class="form-text">Enter the origin of your flight.</div>
+</div>
+
+<div class="mb-3">
+    <label for="to" class="form-label">To</label>
+    <input class="form-control" id="to" [formField]="form.to">
+    <div class="form-text">Enter the destination of your flight.</div>
+</div>
+
+<button class="btn btn-primary" (click)="search()" [disabled]="!criteria().from || !criteria().to">Search</button>
+
+<hr>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">From</th>
+            <th scope="col">To</th>
+            <th scope="col">Date</th>
+            <th scope="col">Delayed</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(flight of flights(); track flight.id) {
+        <tr [class.table-active]="flight === selectedFlight()" (click)="selectFlight(flight)">
+            <th scope="row">{{flight.id}}</th>
+            <td>{{flight.from}}</td>
+            <td>{{flight.to}}</td>
+            <td>{{flight.date}}</td>
+            <td>{{flight.delayed}}</td>
+        </tr>
+        }
+    </tbody>
+</table>
