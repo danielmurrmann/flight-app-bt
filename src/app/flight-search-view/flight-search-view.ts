@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
 import { Flight } from '../entities/flight';
+import { httpResource } from '@angular/common/http';
 
 @Component({
   selector: 'app-flight-search-view',
@@ -8,17 +9,23 @@ import { Flight } from '../entities/flight';
   templateUrl: './flight-search-view.html'
 })
 export class FlightSearchView {
+  url = 'https://demo.angulararchitects.io/api/flight';
+
   criteria = signal({from: 'Berlin', to: 'Munich'});
+
+  searchCriteria = signal({from: '', to: ''});
+
+  flightsResource = httpResource<Flight[]>(() => ({
+    url: this.url,
+    params: this.searchCriteria()
+  }), { defaultValue: []});
+
   form = form(this.criteria);
-  flights = signal<Flight[]>([]);
-  selectedFlight = signal<Flight | undefined>(undefined);
+  flights = this.flightsResource.value; // signal<Flight[]>([]);
+  selectedFlight =signal<Flight | undefined>(undefined);
 
   search() {
-    this.flights.set([
-      {id: 1, from: this.criteria().from, to: this.criteria().to, date: new Date().toISOString(), delayed: false},
-      {id: 2, from: this.criteria().from, to: this.criteria().to, date: new Date().toISOString(), delayed: true},
-      {id: 3, from: this.criteria().from, to: this.criteria().to, date: new Date().toISOString(), delayed: false}
-    ]);
+    this.searchCriteria.set(this.criteria());
   }
 
   selectFlight(flight: Flight) {
