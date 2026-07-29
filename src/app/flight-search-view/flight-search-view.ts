@@ -3,10 +3,11 @@ import { form, FormField } from '@angular/forms/signals';
 import { Flight } from '../entities/flight';
 import { FlightService, flightServiceFactory } from '../services/flight-service';
 import { FlightSearchCriteria, initialFlightSearchCriteria } from '../entities/criteria';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-flight-search-view',
-  imports: [FormField],
+  imports: [FormField, DatePipe],
   templateUrl: './flight-search-view.html',
   providers: [{ provide: FlightService, useFactory: flightServiceFactory}]
 })
