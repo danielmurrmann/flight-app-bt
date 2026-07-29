@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
 import { Flight } from '../entities/flight';
 import { FlightService, flightServiceFactory } from '../services/flight-service';
@@ -17,6 +17,7 @@ export class FlightSearchView {
   criteria = signal<FlightSearchCriteria>({from: 'Berlin', to: 'London'});
   searchCriteria = signal(initialFlightSearchCriteria);
 
+  flightRoute = computed(() => `${this.criteria().from} - ${this.criteria().to}`);
   flightsResource = inject(FlightService).createFlightsResource(this.searchCriteria);
 
   form = form(this.criteria);

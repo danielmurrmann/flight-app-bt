@@ -12,6 +12,8 @@
     <div class="form-text">Enter the destination of your flight.</div>
 </div>
 
+<div>{{flightRoute()}}</div>
+
 <button class="btn btn-primary" (click)="search()" [disabled]="!criteria().from || !criteria().to">Search</button>
 
 <hr>
