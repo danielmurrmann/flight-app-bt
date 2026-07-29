@@ -1,16 +1,13 @@
-import { Service, Signal } from '@angular/core';
+import { Injectable, Signal } from '@angular/core';
 import { FlightSearchCriteria } from '../entities/criteria';
-import { httpResource } from '@angular/common/http';
+import { httpResource, HttpResourceRef } from '@angular/common/http';
 import { Flight } from '../entities/flight';
+import { DefaultFlightService } from './default-flight-service';
 
-@Service()
-export class FlightService {
-    readonly #url = 'https://demo.angulararchitects.io/api/flight';
-
-    createFlightsResource(searchCriteria: Signal<FlightSearchCriteria>) {
-        return httpResource<Flight[]>(() => ({
-            url: this.#url,
-            params: searchCriteria()
-        }), { defaultValue: [] });
-    }
+@Injectable({
+    providedIn: 'root',
+    useClass: DefaultFlightService
+})
+export abstract class FlightService {
+    abstract createFlightsResource(searchCriteria: Signal<FlightSearchCriteria>): HttpResourceRef<Flight[]>
 }
