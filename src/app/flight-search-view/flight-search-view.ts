@@ -4,16 +4,17 @@ import { Flight } from '../entities/flight';
 import { FlightService, flightServiceFactory } from '../services/flight-service';
 import { FlightSearchCriteria, initialFlightSearchCriteria } from '../entities/criteria';
 import { DatePipe } from '@angular/common';
+import { CityPipe } from '../pipes/city-pipe';
 
 @Component({
   selector: 'app-flight-search-view',
-  imports: [FormField, DatePipe],
+  imports: [FormField, DatePipe, CityPipe],
   templateUrl: './flight-search-view.html',
   providers: [{ provide: FlightService, useFactory: flightServiceFactory}]
 })
 export class FlightSearchView {
 
-  criteria = signal<FlightSearchCriteria>({from: 'Berlin', to: 'Munich'});
+  criteria = signal<FlightSearchCriteria>({from: 'Berlin', to: 'London'});
   searchCriteria = signal(initialFlightSearchCriteria);
 
   flightsResource = inject(FlightService).createFlightsResource(this.searchCriteria);
