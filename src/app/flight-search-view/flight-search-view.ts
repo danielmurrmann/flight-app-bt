@@ -1,13 +1,14 @@
 import { Component, inject, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
 import { Flight } from '../entities/flight';
-import { FlightService } from '../services/flight-service';
+import { FlightService, flightServiceFactory } from '../services/flight-service';
 import { FlightSearchCriteria, initialFlightSearchCriteria } from '../entities/criteria';
 
 @Component({
   selector: 'app-flight-search-view',
   imports: [FormField],
-  templateUrl: './flight-search-view.html'
+  templateUrl: './flight-search-view.html',
+  providers: [{ provide: FlightService, useFactory: flightServiceFactory}]
 })
 export class FlightSearchView {
 
