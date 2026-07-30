@@ -18,6 +18,20 @@
 
 <hr>
 
+<pre>
+Form State
+-------------------------
+Form Valid: {{ form().valid() }}
+Form Touched: {{ form().touched() }}
+Form Errors: {{ form().errors() | json }}
+Form From Valid: {{ form.from().valid() }}
+Form From Touched: {{ form.from().touched() }}
+Form From Errors: {{ form.from().errors() | json }}
+Form To Valid: {{ form.to().valid() }}
+Form To Touched: {{ form.to().touched() }}
+Form To Errors: {{ form.to().errors() | json }}
+</pre>
+
 <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
     @for(flight of flights(); track flight.id) {
          <div class="col">
