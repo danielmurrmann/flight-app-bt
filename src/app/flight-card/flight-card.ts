@@ -1,4 +1,4 @@
-import { Component, input, linkedSignal } from '@angular/core';
+import { Component, input, linkedSignal, output } from '@angular/core';
 import { initialFlight } from '../entities/flight';
 import { DatePipe } from '@angular/common';
 import { CityPipe } from '../pipes/city-pipe';
@@ -11,13 +11,16 @@ import { CityPipe } from '../pipes/city-pipe';
 export class FlightCard {
   flight = input(initialFlight);
   selected = input(false);
+  selectedChange = output<boolean>();
   internalSelected = linkedSignal(() => this.selected());
 
   select() {
     this.internalSelected.set(true);
+    this.selectedChange.emit(true);
   }
 
   deselect() {
     this.internalSelected.set(false);
+    this.selectedChange.emit(false);
   }
 }

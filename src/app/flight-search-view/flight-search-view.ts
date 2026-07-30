@@ -3,10 +3,11 @@ import { form, FormField } from '@angular/forms/signals';
 import { FlightService, flightServiceFactory } from '../services/flight-service';
 import { FlightSearchCriteria, initialFlightSearchCriteria } from '../entities/criteria';
 import { FlightCard } from '../flight-card/flight-card';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-flight-search-view',
-  imports: [FormField, FlightCard],
+  imports: [FormField, FlightCard, JsonPipe],
   templateUrl: './flight-search-view.html',
   providers: [{ provide: FlightService, useFactory: flightServiceFactory}]
 })
@@ -32,4 +33,7 @@ export class FlightSearchView {
     this.searchCriteria.set(this.criteria());
   }
 
+  updateBasked(flightId: number, selectedState: boolean) {
+    this.basket.update(currentValue => ({ ...currentValue, [flightId]: selectedState }));
+  }
 }
