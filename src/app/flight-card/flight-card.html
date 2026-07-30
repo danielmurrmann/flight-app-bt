@@ -1,0 +1,17 @@
+<div class="card mb-3" [class.text-bg-info]="internalSelected()">
+    <div class="card-body">
+        <h3 class="card-title">{{flight().from | city:'IATA'}} - {{flight().to | city:'IATA'}}</h3>
+        <div class="card-text">
+            <div>#Id: {{flight().id}}</div>
+            <div>Date: {{flight().date | date:'short'}}</div>
+            <div>Delayed: {{flight().delayed}}</div>
+        </div>
+    </div>
+    <div class="card-footer">
+        @if(internalSelected()) {
+            <button class="btn btn-secondary" (click)="deselect()">Deselect</button>
+        } @else {
+            <button class="btn btn-primary" (click)="select()">Select</button>
+        }
+    </div>
+</div>
