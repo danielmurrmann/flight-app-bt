@@ -13,5 +13,6 @@
         } @else {
             <button class="btn btn-primary" (click)="select()">Select</button>
         }
+        <button class="btn btn-secondary ms-3" [routerLink]="['/flight-edit', flight().id]">Edit</button>
     </div>
 </div>
