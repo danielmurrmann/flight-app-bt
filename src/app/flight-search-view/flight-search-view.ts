@@ -1,7 +1,7 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
-import { form, FormField } from '@angular/forms/signals';
+import { apply, form, FormField, pattern } from '@angular/forms/signals';
 import { FlightService, flightServiceFactory } from '../services/flight-service';
-import { FlightSearchCriteria, initialFlightSearchCriteria } from '../entities/criteria';
+import { FLIGHT_SEARCH_CRITERIA_SCHEMA, FlightSearchCriteria, initialFlightSearchCriteria } from '../entities/criteria';
 import { FlightCard } from '../flight-card/flight-card';
 import { JsonPipe } from '@angular/common';
 
@@ -19,7 +19,11 @@ export class FlightSearchView {
   flightRoute = computed(() => `${this.criteria().from} - ${this.criteria().to}`);
   flightsResource = inject(FlightService).createFlightsResource(this.searchCriteria);
 
-  form = form(this.criteria);
+  form = form(this.criteria, criteria => {
+    apply(criteria, FLIGHT_SEARCH_CRITERIA_SCHEMA);
+    pattern(criteria.from, /(Berlin|Hamburg)/i, { message: 'Only Berlin and Hamburg are allowed' });
+  });
+
   flights = this.flightsResource.value;
   basket =signal<Record<number, boolean>>({2683: true});
 
