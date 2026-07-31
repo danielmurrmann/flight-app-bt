@@ -16,6 +16,13 @@
     }
 </div>
 
+@if(form().errors().length) {
+    <div>Form level errors:</div>
+    @for(error of form().errors(); track $index) {
+    <div class="text-danger">{{error.message}}</div>
+    }
+}
+
 <p>Your current Route: {{flightRoute()}}</p>
 
 <button class="btn btn-primary" (click)="search()" [disabled]="!criteria().from || !criteria().to">Search</button>

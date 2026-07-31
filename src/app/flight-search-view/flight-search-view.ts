@@ -19,10 +19,7 @@ export class FlightSearchView {
   flightRoute = computed(() => `${this.criteria().from} - ${this.criteria().to}`);
   flightsResource = inject(FlightService).createFlightsResource(this.searchCriteria);
 
-  form = form(this.criteria, criteria => {
-    apply(criteria, FLIGHT_SEARCH_CRITERIA_SCHEMA);
-    pattern(criteria.from, /(Berlin|Hamburg)/i, { message: 'Only Berlin and Hamburg are allowed' });
-  });
+  form = form(this.criteria, FLIGHT_SEARCH_CRITERIA_SCHEMA);
 
   flights = this.flightsResource.value;
   basket =signal<Record<number, boolean>>({2683: true});
