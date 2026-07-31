@@ -1,9 +1,9 @@
 import { Component, signal } from '@angular/core';
-import { FlightSearchView } from './flight-search-view/flight-search-view';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [FlightSearchView],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
